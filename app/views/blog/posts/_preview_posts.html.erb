@@ -1,0 +1,3 @@
+<% posts.each_with_index do |post, index| %>
+    <%= render partial: '/blog/posts/preview', locals: { post: post, show_line_break: index != 0 } %>
+<% end %>

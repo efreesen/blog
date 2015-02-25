@@ -1,0 +1,15 @@
+<% if show_line_break %>
+    <hr>
+<% end %>
+
+<div class="post-preview">
+    <a href="post.html">
+        <h2 class="post-title">
+            <%= post.title %>
+        </h2>
+        <h3 class="post-subtitle">
+            <%= post.subtitle %>
+        </h3>
+    </a>
+    <p class="post-meta">Posted by <a href="#"><%= post.user_name %></a> on <%= I18n.l post.published_at, format: :long %></p>
+</div>
