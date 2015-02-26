@@ -12,9 +12,9 @@ module Blogging
 
       def self.show(listener)
         post_slug = listener.params[:slug]
-        post = Blogging::Manager.post(slug)
+        post = Blogging::Manager.post(post_slug)
 
-        listener.render_resources(post)
+        listener.render_resource(post)
       end
     end
   end
