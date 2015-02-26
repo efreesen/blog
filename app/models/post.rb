@@ -4,5 +4,5 @@ class Post < ActiveRecord::Base
   scope :published, -> { where(published: true) }
   scope :with_slug, ->(slug) { where(slug: slug) }
 
-  default_scope { order('published_at') }
+  default_scope { order('published_at DESC') }
 end

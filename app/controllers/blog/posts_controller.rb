@@ -8,4 +8,12 @@ class Blog::PostsController < ApplicationController
   def show
     Blogging::Navigators::PostsNavigator.show(self)
   end
+
+  def render_resources(posts)
+    @posts = posts
+  end
+
+  def render_resource(post)
+    @post = post
+  end
 end

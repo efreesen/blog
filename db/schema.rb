@@ -26,10 +26,11 @@ ActiveRecord::Schema.define(version: 2) do
   end
 
   add_index "posts", ["slug"], name: "index_posts_on_slug", unique: true, using: :btree
-  add_index "posts", ["user_id"], name: "fk_rails_289264c3c2", using: :btree
+  add_index "posts", ["user_id"], name: "fk_rails_f2f7d59426", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
+    t.string   "page",       limit: 255, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

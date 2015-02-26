@@ -4,7 +4,7 @@ class Blog::BlogController < ApplicationController
   layout 'blog'
 
   def index
-    Blogging::Navigators::PostsNavigator.index(self)
+    Blogging::Navigators::PostsNavigator.preview(self)
   end
 
   def about

@@ -3,7 +3,7 @@
 <% end %>
 
 <div class="post-preview">
-    <a href="post.html">
+    <a href="/posts/<%= post.slug %>">
         <h2 class="post-title">
             <%= post.title %>
         </h2>
@@ -11,5 +11,5 @@
             <%= post.subtitle %>
         </h3>
     </a>
-    <p class="post-meta">Posted by <a href="#"><%= post.user_name %></a> on <%= I18n.l post.published_at, format: :long %></p>
+    <p class="post-meta">Posted by <a href="<%= post.user_page %>" target="_blank"><%= post.user_name %></a> on <%= I18n.l post.published_at, format: :long %></p>
 </div>

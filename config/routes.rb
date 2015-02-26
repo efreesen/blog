@@ -8,9 +8,10 @@ Rails.application.routes.draw do
   get 'about' => 'blog/blog#about'
   get 'contact' => 'blog/blog#contact'
 
-  resources :posts, controller: 'blog/posts', only: :index do
-    get ':slug', action: 'show'
-  end
+  resources :posts,
+    controller: 'blog/posts',
+    param: :slug,
+    only: [:show, :index]
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

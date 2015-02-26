@@ -1,20 +1,30 @@
 require './business/blogging/manager'
 
 describe Blogging::Manager do
-  describe '.posts' do
+  describe '.preview_posts' do
     context 'when size is passed' do
       let(:size) { 8 }
 
       it 'calls PostRepository.latest with size as param' do
         expect(Blogging::Repositories::PostRepository).to receive(:latest).with(size)
 
-        described_class.posts(size)
+        described_class.preview_posts(size)
       end
     end
 
     context 'when size is not passed' do
       it 'calls PostRepository.latest with 5 as param' do
         expect(Blogging::Repositories::PostRepository).to receive(:latest).with(5)
+
+        described_class.preview_posts
+      end
+    end
+  end
+
+  describe '.posts' do
+    context 'when size is not passed' do
+      it 'calls PostRepository.all' do
+        expect(Blogging::Repositories::PostRepository).to receive(:all)
 
         described_class.posts
       end

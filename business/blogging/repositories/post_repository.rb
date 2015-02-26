@@ -17,6 +17,12 @@ module Blogging
         serialize(resource)
       end
 
+      def self.all
+        resources = Post.published
+
+        serialize(resources)
+      end
+
       def self.get(slug)
         resource = Post.find_by(slug: slug)
 
@@ -46,6 +52,7 @@ module Blogging
         else
           attributes = object.attributes
           attributes[:user_name] = object.user.name
+          attributes[:user_page] = object.user.page
 
           Blogging::Entities::PostEntity.new(attributes)
         end

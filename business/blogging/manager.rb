@@ -6,8 +6,12 @@ module Blogging
       @slug = slug
     end
 
-    def self.posts(size=5)
+    def self.preview_posts(size=5)
       Repositories::PostRepository.latest(size)
+    end
+
+    def self.posts
+      Repositories::PostRepository.all
     end
 
     def self.has_more_posts?(size=5)

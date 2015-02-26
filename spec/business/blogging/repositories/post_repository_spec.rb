@@ -5,7 +5,7 @@ require './business/blogging/repositories/post_repository'
 describe Blogging::Repositories::PostRepository do
   before do
     class Post
-      attr_accessor :slug, :title, :errors
+      attr_accessor :slug, :title, :errors, :published
       def initialize(hash); @slug = hash[:slug]; end
       def self.with_slug(args); self; end
       def self.first_or_initialize; self; end
@@ -14,7 +14,7 @@ describe Blogging::Repositories::PostRepository do
       def self.published; self; end
       def self.count; 0; end
       def update_attributes(hash); end
-      def user; OpenStruct.new(name: 'name'); end
+      def user; OpenStruct.new(name: 'name', page: 'page'); end
       def attributes; {slug: slug}; end
     end
   end
@@ -108,11 +108,11 @@ describe Blogging::Repositories::PostRepository do
       context 'and a post is found' do
         let(:slug) { 'slug' }
         let(:result) { Post.new slug: slug }
-        let(:post) { Blogging::Entities::PostEntity.new(slug: slug, user_name: 'name') }
+        let(:post) { Blogging::Entities::PostEntity.new(slug: slug, user_name: 'name', user_page: 'page') }
 
         before do
           allow(Post).to receive(:find_by).with(slug: slug).and_return(result)
-          allow(Blogging::Entities::PostEntity).to receive(:new).with(slug: slug, user_name: 'name').and_return(post)
+          allow(Blogging::Entities::PostEntity).to receive(:new).with(slug: slug, user_name: 'name', user_page: 'page').and_return(post)
         end
 
         it 'returns post' do
@@ -146,6 +146,156 @@ describe Blogging::Repositories::PostRepository do
     context 'when slug is not passed' do
       it 'returns nil' do
         expect{described_class.get}.to raise_error(ArgumentError)
+      end
+    end
+  end
+
+  describe '.all' do
+    let(:size) { 10 }
+    let(:slug) { 'slug' }
+
+    context 'when not all posts are published' do
+      let(:collection) do
+        array = []
+
+        size.times do |i|
+          array.push Post.new(slug: "#{slug}#{i}", published: (i > 8))
+        end
+
+        array
+      end
+      let(:result) do
+        array = []
+
+        size.times do |i|
+          array.push Blogging::Entities::PostEntity.new(slug: "#{slug}#{i}", published: (i > 8))
+        end
+
+        array
+      end
+      let(:filtered_collection) { collection[0..size-2] }
+
+      before do
+        allow(Post).to receive(:published).and_return(filtered_collection)
+      end
+
+      it 'returns 9 posts' do
+        expect(described_class.all.size).to eq 9
+      end
+
+      it 'returns only the published posts from collection' do
+        result = described_class.all.map(&:published).uniq
+
+        expect(result).to be
+      end
+    end
+
+    context 'when all posts are published' do
+      let(:collection) do
+        array = []
+
+        6.times do |i|
+          array.push Post.new(slug: "#{slug}#{i}", published: true)
+        end
+
+        array
+      end
+      let(:result) do
+        array = []
+
+        6.times do |i|
+          array.push Blogging::Entities::PostEntity.new(slug: "#{slug}#{i}", published: true)
+        end
+
+        array
+      end
+
+      before do
+        allow(Post).to receive(:published).and_return(collection)
+      end
+
+      it 'returns 6 posts' do
+        expect(described_class.all.size).to eq 6
+      end
+
+      it 'returns all posts from collection' do
+        returned_array = described_class.all.map &:slug
+        expected_array = result.map &:slug
+
+        expect(returned_array).to eq expected_array
+      end
+    end
+
+    context 'when there are no published posts' do
+      let(:collection) do
+        array = []
+
+        6.times do |i|
+          array.push Post.new(slug: "#{slug}#{i}", published: false)
+        end
+
+        array
+      end
+      let(:result) do
+        collection.select{ |p| p.published }
+      end
+
+      before do
+        allow(Post).to receive(:published).and_return(result)
+      end
+
+      it 'returns 0 posts' do
+        expect(described_class.all.size).to eq 0
+      end
+
+      it 'returns an empty array' do
+        expect(described_class.all).to be_empty
+      end
+    end
+
+    context 'when there are no posts' do
+      let(:collection) { [] }
+
+      before do
+        allow(Post).to receive(:published).and_return(collection)
+      end
+
+      it 'returns 0 posts' do
+        expect(described_class.all.size).to eq 0
+      end
+
+      it 'returns an empty array' do
+        expect(described_class.all).to be_empty
+      end
+    end
+  end
+
+  describe '.has_more_posts?' do
+    context 'when there are less than size posts' do
+      let(:size) { 5 }
+
+      before do
+        allow(Post).to receive(:count).and_return 3
+      end
+
+      subject { described_class.has_more_posts?(size) }
+
+      it 'returns false' do
+        expect(subject).not_to be
+      end
+    end
+
+    context 'when there are more than size posts' do
+      let(:size) { 5 }
+
+      before do
+        allow(Post).to receive(:count).and_return 6
+      end
+
+      subject { described_class.has_more_posts?(size) }
+
+      it 'returns false' do
+        expect(subject).to be
       end
     end
   end

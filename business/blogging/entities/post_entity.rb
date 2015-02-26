@@ -4,6 +4,7 @@ module Blogging
   module Entities
     class PostEntity < Entity::Base
       field :user_name
+      field :user_page
       field :slug
       field :title
       field :subtitle

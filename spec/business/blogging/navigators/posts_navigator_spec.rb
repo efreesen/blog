@@ -1,18 +1,33 @@
 require './business/blogging/navigators/posts_navigator'
 
 describe Blogging::Navigators::PostsNavigator do
-  describe '.index' do
+  describe '.preview' do
     let(:listener) { double }
     let(:has_more) { false }
     let(:posts) { [1,2,3,4] }
 
     before do
-      allow(Blogging::Manager).to receive(:posts).and_return(posts)
+      allow(Blogging::Manager).to receive(:preview_posts).and_return(posts)
       allow(Blogging::Manager).to receive(:has_more_posts?).and_return(has_more)
     end
 
     it "calls listener's render_resource with right params" do
       expect(listener).to receive(:render_resources).with(posts, has_more)
+
+      described_class.preview(listener)
+    end
+  end
+
+  describe '.index' do
+    let(:listener) { double }
+    let(:posts) { [1,2,3,4] }
+
+    before do
+      allow(Blogging::Manager).to receive(:posts).and_return(posts)
+    end
+
+    it "calls listener's render_resource with right params" do
+      expect(listener).to receive(:render_resources).with(posts)
 
       described_class.index(listener)
     end
