@@ -11,8 +11,8 @@ if rails_env == 'production'
   listen      '/var/run/unicorn/unicorn.sock', :backlog => 2048
   
   pid         "/var/run/unicorn/unicorn.pid"
-  stderr_path "/var/log/unicorn.log"
-  stdout_path "/var/log/unicorn.log"
+  stderr_path "/var/log/unicorn/unicorn.log"
+  stdout_path "/var/log/unicorn/unicorn.log"
 else
   listen      8080
   
