@@ -8,9 +8,9 @@ preload_app       true
 timeout           30
  
 if rails_env == 'production'
-  listen      '/var/run/unicorn.sock', :backlog => 2048
+  listen      '/var/run/unicorn/unicorn.sock', :backlog => 2048
   
-  pid         "/var/run/unicorn.pid"
+  pid         "/var/run/unicorn/unicorn.pid"
   stderr_path "/var/log/unicorn.log"
   stdout_path "/var/log/unicorn.log"
 else
@@ -39,7 +39,7 @@ before_fork do |server, worker|
   #
   # Using this method we get 0 downtime deploys.
  
-  old_pid = Rails.env.production? ? "/var/run/unicorn.pid.oldbin" :
+  old_pid = Rails.env.production? ? "/var/run/unicorn/unicorn.pid.oldbin" :
                                     "#{Rails.root}/tmp/pids/unicorn.pid.oldbin"
   if File.exists?(old_pid) && server.pid != old_pid
     begin
