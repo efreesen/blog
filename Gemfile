@@ -31,6 +31,6 @@ group :development, :test do
   gem 'rspec', '~> 3.2'
 end
 
-group :production
+group :production do
   gem 'unicorn', '~> 4.8'
 end
