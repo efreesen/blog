@@ -1,8 +1,8 @@
-# unicorn_rails -c /srv/myapp/current/config/unicorn.rb -E production -D
+# unicorn_rails -c /usr/share/nginx/www/blog/config/unicorn.rb -E production -D
  
 rails_env = ENV['RAILS_ENV'] || 'production'
  
-working_directory (rails_env == 'production' ? "/srv/myapp/current" : `pwd`.gsub("\n", ""))
+working_directory (rails_env == 'production' ? "/usr/share/nginx/www/blog" : `pwd`.gsub("\n", ""))
 worker_processes  (rails_env == 'production' ? 10 : 4)
 preload_app       true
 timeout           30
