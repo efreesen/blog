@@ -11,12 +11,7 @@ gem 'uglifier', '>= 1.3'
 gem 'therubyracer', '~> 0.12'
 gem 'less-rails-bootstrap', '~> 3.3'
 gem 'entity_rb', '~> 0'
-
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use Unicorn as the app server
-gem 'unicorn', '~> 4.8'
+gem 'actionpack-action_caching', '~> 1.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
