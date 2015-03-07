@@ -12,6 +12,7 @@ gem 'therubyracer', '~> 0.12'
 gem 'less-rails-bootstrap', '~> 3.3'
 gem 'entity_rb', '~> 0'
 gem 'actionpack-action_caching', '~> 1.1'
+gem 'yui-compressor', '~> 0.12'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
