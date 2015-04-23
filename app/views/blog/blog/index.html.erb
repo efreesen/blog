@@ -2,6 +2,7 @@
 <% content_for :subtitle, "A Recursive Blog" %>
 <% content_for :image, asset_path("home-bg1.jpg") %>
 <% content_for :intro_class, 'site-heading' %>
+<% content_for :type, 'website' %>
 
 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
     <%= render partial: PostsPresenter.preview_partial(@posts), locals: { posts: @posts } %>

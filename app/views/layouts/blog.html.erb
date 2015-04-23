@@ -11,11 +11,12 @@
     <meta name="author" content="Caio Torres">
 
     <!-- OpenGraph Metatags -->
-    <meta property="og:title" content="<%= title(yield(:title)) %>"/>
-    <meta property="og:url" content="http://efreesen.com"/>
     <meta property="og:site_name" content="Efreesen's Blog"/>
-    <meta property="og:type" content="website"/>
-    <meta property="og:description" content="<%= yield(:subtitle) %>"/>
+    <meta property="og:title" content="<%= yield(:title) %>"/>
+    <meta property="og:url" content="http://efreesen.com<%= yield(:path) %>"/>
+    <meta property="og:description" content="<%= yield(:subtitle) || "A recursive Blog, wrote to explain how it was built." %>"/>
+    <meta property="og:type" content="<%= yield(:type) %>"/>
+    <meta property="article:author" content="<%= yield(:author) %>"/>
 
     <title><%= title(yield(:title)) %></title>
 

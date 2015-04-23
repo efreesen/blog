@@ -2,5 +2,6 @@
 <% content_for :subtitle, "This is the blog content" %>
 <% content_for :image, asset_path("home-bg1.jpg") %>
 <% content_for :intro_class, 'page-heading' %>
+<% content_for :type, 'website' %>
 
 <%= render partial: PostsPresenter.preview_partial(@posts), locals: { posts: @posts } %>

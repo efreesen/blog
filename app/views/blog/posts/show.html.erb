@@ -1,7 +1,10 @@
 <% content_for :title, @post.title %>
 <% content_for :subtitle, @post.subtitle %>
+<% content_for :path, "/posts/#{@post.slug}" %>
 <% content_for :image, asset_path("home-bg1.jpg") %>
 <% content_for :intro_class, 'post-heading' %>
+<% content_for :type, 'article' %>
+<% content_for :author, @post.user_page %>
 
 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
     <%= raw @post.content %>
