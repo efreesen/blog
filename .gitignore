@@ -15,3 +15,5 @@ config/*.yml
 !/log/.keep
 /tmp
 /bin
+/public/assets
+/vendor/bundle
