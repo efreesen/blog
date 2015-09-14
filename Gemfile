@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.1.5'
+ruby '2.2.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
@@ -14,6 +14,8 @@ gem 'entity_rb', '~> 0'
 gem 'actionpack-action_caching', '~> 1.1'
 gem 'yui-compressor', '~> 0.12'
 gem 'rollbar', '~> 1.5'
+gem 'mina', '~> 0.3'
+gem 'mina-unicorn', '~>  0.3', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
