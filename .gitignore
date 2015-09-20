@@ -10,6 +10,9 @@
 # Ignore config files
 config/*.yml
 
+# Ignore sitemap files
+public/sitemap*
+
 # Ignore all logfiles and tempfiles.
 /log/*
 !/log/.keep

@@ -16,6 +16,7 @@ gem 'yui-compressor', '~> 0.12'
 gem 'rollbar', '~> 1.5'
 gem 'mina', '~> 0.3'
 gem 'mina-unicorn', '~>  0.3', require: false
+gem "dynamic_sitemaps"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
