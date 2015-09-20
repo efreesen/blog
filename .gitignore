@@ -17,3 +17,4 @@ config/*.yml
 /bin
 /public/assets
 /vendor/bundle
+.DS_Store
