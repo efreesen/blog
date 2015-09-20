@@ -181,7 +181,7 @@ PLATFORMS
 
 DEPENDENCIES
   actionpack-action_caching (~> 1.1)
-  dynamic_sitemaps
+  dynamic_sitemaps (~> 2.0.0)
   entity_rb (~> 0)
   less-rails-bootstrap (~> 3.3)
   mina (~> 0.3)
