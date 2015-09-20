@@ -11,7 +11,7 @@ require 'mina/unicorn'
 #   repository   - Git repo to clone from. (needed by mina/git)
 #   branch       - Branch name to deploy. (needed by mina/git)
 
-set :domain, '168.235.150.166' #'ssh.efreesen.com'
+set :domain, 'ssh.efreesen.com'
 set :deploy_to, '/var/www/blog'
 set :ssh_options, '-o IdentitiesOnly=yes'
 set :identity_file, '/Users/caiotorres/.ssh/deploy_key'
