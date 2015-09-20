@@ -71,8 +71,9 @@ task :deploy => :environment do
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
     invoke :'rails:assets_precompile'
-    invoke :'sitemap:generate'
+    queue 'RAILS_ENV=production bin/rake sitemap:generate'
     queue 'cp public/sitemaps/sitemap.xml public/sitemap.xml'
+    queue 'RAILS_ENV=production bin/rake tmp:cache:clear'
     invoke :'deploy:cleanup'
 
     to :launch do
