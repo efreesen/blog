@@ -6,7 +6,9 @@
 <% content_for :type, 'article' %>
 <% content_for :author, @post.user_page %>
 
-<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<progress max="1" value="0"></progress>
+
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1" id="post-content">
     <%= raw @post.content %>
     <hr>
     <p class="post-meta">Posted by <a href="<%= @post.user_page %>" target="_blank"><%= @post.user_name %></a> on <%= I18n.l @post.published_at, format: :long %></p>
