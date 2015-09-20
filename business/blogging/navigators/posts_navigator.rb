@@ -20,7 +20,11 @@ module Blogging
         post_slug = listener.params[:slug]
         post = Blogging::Manager.post(post_slug)
 
-        listener.render_resource(post)
+        if post
+          listener.render_resource(post)
+        else
+          listener.resource_not_found
+        end
       end
     end
   end

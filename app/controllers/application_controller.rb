@@ -14,4 +14,8 @@ class ApplicationController < ActionController::Base
 
     string
   end
+
+  def resource_not_found
+    redirect_to '/404.html'
+  end
 end
