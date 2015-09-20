@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   get 'about' => 'blog/blog#about'
   get 'contact' => 'blog/blog#contact'
+  get '/robots.:format' => 'pages#robots'
 
   resources :posts,
     controller: 'blog/posts',
