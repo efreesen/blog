@@ -14,7 +14,7 @@ require 'mina/unicorn'
 set :domain, '168.235.150.166' #'ssh.efreesen.com'
 set :deploy_to, '/var/www/blog'
 set :ssh_options, '-o IdentitiesOnly=yes'
-set :identity_file, '/home/caltorres/.ssh/deploy_key'
+set :identity_file, '/Users/caiotorres/.ssh/deploy_key'
 set :repository, 'git@code.efreesen.com:efreesen/blog.git'
 set :branch, 'master'
 set :unicorn_pid, "/var/run/efreesen/unicorn.pid"
@@ -71,6 +71,8 @@ task :deploy => :environment do
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
     invoke :'rails:assets_precompile'
+    invoke :'sitemap:generate'
+    queue 'cp public/sitemaps/sitemap.xml public/sitemap.xml'
     invoke :'deploy:cleanup'
 
     to :launch do
