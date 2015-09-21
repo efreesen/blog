@@ -13,7 +13,7 @@ gem 'less-rails-bootstrap', '~> 3.3'
 gem 'entity_rb', '~> 0'
 gem 'actionpack-action_caching', '~> 1.1'
 gem 'yui-compressor', '~> 0.12'
-gem 'rollbar', '~> 1.5'
+gem 'rollbar', '~>  2.2.1'
 gem 'mina', '~> 0.3'
 gem 'mina-unicorn', '~>  0.3', require: false
 gem "dynamic_sitemaps", '~> 2.0.0'
