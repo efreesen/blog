@@ -2,7 +2,6 @@ class Blog::PostsController < ApplicationController
   layout 'blog'
 
   def index
-    raise 'OK'
     Blogging::Navigators::PostsNavigator.index(self)
   end
 
