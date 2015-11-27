@@ -13,6 +13,7 @@ describe Blogging::Repositories::PostRepository do
       def self.limit(size); []; end
       def self.published; self; end
       def self.count; 0; end
+      def publish!; self; end
       def update_attributes(hash); end
       def user; OpenStruct.new(name: 'name', page: 'page'); end
       def attributes; {slug: slug}; end
@@ -26,12 +27,12 @@ describe Blogging::Repositories::PostRepository do
           let(:title) { 'Nice title' }
           let(:slug) { 'nice-title' }
           let(:result) { Post.new title: title, slug: slug }
-          let(:post) { Blogging::Entities::PostEntity.new(title: title) }
+          let(:post) { Blogging::Entities::PostEntity.new(title: title, slug: slug) }
 
           before do
             allow(Post).to receive(:first_or_initialize).and_return(result)
             allow(result).to receive(:attributes).and_return(slug: slug)
-            allow(result).to receive(:update_attributes).with(post.attributes).and_return(true)
+            allow(result).to receive(:update_attributes).with(post.model_attributes).and_return(true)
           end
 
           subject { described_class.save(post) }
@@ -56,7 +57,7 @@ describe Blogging::Repositories::PostRepository do
           before do
             allow(Post).to receive(:first_or_initialize).and_return(result)
             allow(result).to receive(:attributes).and_return(errors: 'errors')
-            allow(result).to receive(:update_attributes).with(post.attributes).and_return(false)
+            allow(result).to receive(:update_attributes).with(post.model_attributes).and_return(false)
           end
 
           subject { described_class.save(post) }
@@ -99,6 +100,62 @@ describe Blogging::Repositories::PostRepository do
     context 'when slug is not passed' do
       it 'returns nil' do
         expect{described_class.get}.to raise_error(ArgumentError)
+      end
+    end
+  end
+
+  describe '.publish!' do
+    let(:record) { Post.new({}) }
+
+    subject { described_class.publish!(slug) }
+
+    context 'when slug is passed' do
+      let(:slug) { 'slug' }
+
+      context 'and record is found' do
+        before do
+          allow(Post).to receive(:with_slug).with(slug).and_return(record)
+        end
+
+        after { subject }
+
+        it 'looks for record with given slug' do
+          expect(Post).to receive(:with_slug).with(slug).and_return(record)
+        end
+
+        it 'publishes the post' do
+          expect(record).to receive(:publish!)
+        end
+      end
+
+      context 'and record is not found' do
+        before do
+          allow(Post).to receive(:with_slug).with(slug).and_return(nil)
+        end
+
+        after { subject }
+
+        it 'looks for record with given slug' do
+          expect(Post).to receive(:with_slug).with(slug).and_return(nil)
+        end
+
+        it 'publishes the post' do
+          expect(record).not_to receive(:publish!)
+        end
+      end
+    end
+
+    context 'when slug is nil' do
+      let(:slug) { nil }
+
+      it 'returns false' do
+        expect(subject).to be_falsey
+      end
+
+      it 'do not look for the record' do
+        expect(Post).not_to receive(:with_slug)
+
+        subject
       end
     end
   end

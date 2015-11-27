@@ -6,15 +6,23 @@ module Blogging
   module Repositories
     class PostRepository
       def self.save(post)
-        return nil unless post
+        return false unless post
 
-        slug = post.slug ? post.slug : post.title.parameterize
+        post.slug ||= post.title.parameterize
 
-        resource = Post.published.with_slug(slug).first_or_initialize
+        resource = Post.with_slug(post.slug).first_or_initialize
 
-        resource.update_attributes(post.attributes)
+        resource.update_attributes(post.model_attributes)
 
         serialize(resource)
+      end
+
+      def self.publish!(slug)
+        return false unless slug
+
+        post = Post.with_slug(slug)
+
+        post.publish! if post
       end
 
       def self.all
@@ -42,6 +50,8 @@ module Blogging
       end
 
       private
+      attr_accessor :post
+
       def self.serialize(object)
         return unless object
 

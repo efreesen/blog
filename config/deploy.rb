@@ -14,7 +14,7 @@ require 'mina/unicorn'
 set :domain, 'ssh.efreesen.com'
 set :deploy_to, '/var/www/blog'
 set :ssh_options, '-o IdentitiesOnly=yes'
-set :identity_file, '/Users/caiotorres/.ssh/deploy_key'
+set :identity_file, '/home/caltorres/.ssh/deploy_key'
 set :repository, 'git@code.efreesen.com:efreesen/blog.git'
 set :branch, 'master'
 set :unicorn_pid, "/var/run/efreesen/unicorn.pid"
