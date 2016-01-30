@@ -26,6 +26,12 @@ module Blogging
           listener.resource_not_found
         end
       end
+
+      def self.feed(listener)
+        posts = Blogging::Manager.posts
+
+        listener.render_feed(posts)
+      end
     end
   end
 end

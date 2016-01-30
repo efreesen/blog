@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'about' => 'blog/blog#about'
   get 'contact' => 'blog/blog#contact'
   get '/robots.:format' => 'pages#robots'
+  get 'feed' => 'blog/posts#feed', defaults: { format: :rss }
 
   resources :posts,
     controller: 'blog/posts',

@@ -9,8 +9,20 @@ class Blog::PostsController < ApplicationController
     Blogging::Navigators::PostsNavigator.show(self)
   end
 
+  def feed
+    Blogging::Navigators::PostsNavigator.feed(self)
+  end
+
   def render_resources(posts)
     @posts = posts
+  end
+
+  def render_feed(posts)
+    @posts = posts
+
+    respond_to do |format|
+      format.rss { render :layout => false }
+    end
   end
 
   def render_resource(post)
