@@ -3,10 +3,11 @@ source 'https://rubygems.org'
 ruby '2.2.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.2'
+gem 'rails', '~> 4.2'
 # Use mysql2 as the database for Active Record
 gem 'mysql2', '~> 0.3.0'
 # Use Uglifier as compressor for JavaScript assets
+gem 'nokogiri', '~> 1.6.7.2'
 gem 'uglifier', '>= 1.3'
 gem 'therubyracer', '~> 0.12'
 gem 'less-rails-bootstrap', '~> 3.3'
