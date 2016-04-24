@@ -11,9 +11,10 @@ require 'mina/puma'
 #   repository   - Git repo to clone from. (needed by mina/git)
 #   branch       - Branch name to deploy. (needed by mina/git)
 
-set :domain, '104.233.116.74'
+set :domain, '104.233.115.225'
 set :deploy_to, '/var/www/blog'
-set :ssh_options, '-o IdentitiesOnly=yes -i /Users/caiotorres/.ssh/deploy_key'
+set :ssh_options, '-o IdentitiesOnly=yes'
+set :identity_file, '/Users/caiotorres/.ssh/deploy_key'
 set :repository, 'git@code.efreesen.com:efreesen/blog.git'
 set :branch, 'master'
 set :puma_pid, "/var/run/efreesen/puma.pid"
