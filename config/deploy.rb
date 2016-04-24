@@ -1,7 +1,7 @@
 require 'mina/bundler'
 require 'mina/rails'
 require 'mina/git'
-require 'mina/unicorn'
+require 'mina/puma'
 # require 'mina/rbenv'  # for rbenv support. (http://rbenv.org)
 # require 'mina/rvm'    # for rvm support. (http://rvm.io)
 
@@ -11,13 +11,12 @@ require 'mina/unicorn'
 #   repository   - Git repo to clone from. (needed by mina/git)
 #   branch       - Branch name to deploy. (needed by mina/git)
 
-set :domain, 'ssh.efreesen.com'
+set :domain, '104.233.116.74'
 set :deploy_to, '/var/www/blog'
-set :ssh_options, '-o IdentitiesOnly=yes'
-set :identity_file, '/Users/caiotorres/.ssh/deploy_key'
+set :ssh_options, '-o IdentitiesOnly=yes -i /Users/caiotorres/.ssh/deploy_key'
 set :repository, 'git@code.efreesen.com:efreesen/blog.git'
 set :branch, 'master'
-set :unicorn_pid, "/var/run/efreesen/unicorn.pid"
+set :puma_pid, "/var/run/efreesen/puma.pid"
 
 # For system-wide RVM install.
 #   set :rvm_path, '/usr/local/rvm/bin/rvm'
@@ -77,7 +76,7 @@ task :deploy => :environment do
     invoke :'deploy:cleanup'
 
     to :launch do
-      invoke :'unicorn:restart'
+      invoke :'puma:phased_restart'
     end
   end
 end

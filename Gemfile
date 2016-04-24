@@ -17,7 +17,7 @@ gem 'yui-compressor', '~> 0.12'
 gem 'rollbar', '~>  2.9'
 gem 'oj', '~> 2.12'
 gem 'mina', '~> 0.3'
-gem 'mina-unicorn', '~>  0.3', require: false
+gem 'mina-puma', :require => false
 gem "dynamic_sitemaps", '~> 2.0.0'
 
 group :development, :test do
@@ -34,5 +34,5 @@ group :development, :test do
 end
 
 group :production do
-  gem 'unicorn', '~> 4.8'
+  gem 'puma', '~> 3.4'
 end
