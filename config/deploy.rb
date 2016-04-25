@@ -77,7 +77,11 @@ task :deploy => :environment do
     invoke :'deploy:cleanup'
 
     to :launch do
-      invoke :'puma:phased_restart'
+      if File.exists?("/var/run/efreesen/puma.pid")
+        invoke :'puma:phased_restart'
+      else
+        invoke :'puma:start'
+      end
     end
   end
 end

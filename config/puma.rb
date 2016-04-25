@@ -1,5 +1,11 @@
 #!/usr/bin/env puma
 
+workers 2
+threads 0, 16
+
+preload_app!
+
+rackup      DefaultRackup
 environment ENV['RAILS_ENV'] || 'production'
 
 daemonize true
@@ -10,4 +16,7 @@ stdout_redirect "/var/log/puma/stdout.log", "/var/log/puma/stderr.log"
 threads 0, 16
 
 bind "unix:///var/run/puma/puma.sock"
-Raw
+
+on_worker_boot do
+  ActiveRecord::Base.establish_connection
+end
