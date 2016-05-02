@@ -11,20 +11,20 @@ require 'mina/puma'
 #   repository   - Git repo to clone from. (needed by mina/git)
 #   branch       - Branch name to deploy. (needed by mina/git)
 
-set :domain, '104.233.115.225'
+set :domain, '45.62.245.200'
 set :deploy_to, '/var/www/blog'
 set :ssh_options, '-o IdentitiesOnly=yes'
-set :identity_file, '/Users/caiotorres/.ssh/deploy_key'
+set :identity_file, '/Users/efreesen/.ssh/deploy_key'
 set :repository, 'git@code.efreesen.com:efreesen/blog.git'
 set :branch, 'master'
-set :puma_pid, "/var/run/efreesen/puma.pid"
+set :puma_pid, "/var/run/blog/blog.pid"
 
 # For system-wide RVM install.
 #   set :rvm_path, '/usr/local/rvm/bin/rvm'
 
 # Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
 # They will be linked in the 'deploy:link_shared_paths' step.
-set :shared_paths, ['config/database.yml', 'config/secrets.yml', 'config/unicorn.rb']
+set :shared_paths, ['config/database.yml', 'config/secrets.yml', 'config/puma.rb']
 set :keep_releases,   3
 
 # Optional settings:
@@ -77,7 +77,7 @@ task :deploy => :environment do
     invoke :'deploy:cleanup'
 
     to :launch do
-      if File.exists?("/var/run/efreesen/puma.pid")
+      if File.exists?("/var/run/blog/blog.pid")
         invoke :'puma:phased_restart'
       else
         invoke :'puma:start'
