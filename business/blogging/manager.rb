@@ -25,8 +25,6 @@ module Blogging
     end
 
     private
-    def slug
-      @slug
-    end
+    attr_reader :slug
   end
 end

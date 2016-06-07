@@ -8,11 +8,7 @@ class ApplicationController < ActionController::Base
   def title(title)
     string = "Efreesen's Blog"
 
-    if title != "Efreesen&#39;s Blog"
-      string += " - #{title}"
-    end
-
-    string
+    title == "Efreesen&#39;s Blog" ? title : "#{string} - #{title}"
   end
 
   def resource_not_found
